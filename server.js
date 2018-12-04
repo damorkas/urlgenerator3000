@@ -19,9 +19,11 @@ app.get('/*', (req, res) => {
 
 app.post('/connect', async (req, res) => {
     const data = req.body;
+    console.log('data?: ', data);
     let items = [];
 
     if (client.getConnectionStatus() === 'connected') {
+        console.log('connected..');
         await client.end();
     }
 
@@ -32,6 +34,7 @@ app.post('/connect', async (req, res) => {
         port: data.port,
         connTimeout: 1000
     }).then((msg) => {
+        console.log('msg: ', msg);
         return client.list('/');
     }).then((list) => {
         items = list;
