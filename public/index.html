@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PT_ftp</title>
+
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="six columns">
+                <form id="ftp" autocomplete="off">
+                    <div class="six columns">
+                        <label for="host">Host</label>
+                        <input class="u-full-width" type="text" id="host">
+
+                        <label for="user">Username</label>
+                        <input class="u-full-width" type="text" id="user">
+                    </div>
+                    <div class="six columns">
+                        <label for="port">Port</label>
+                        <input class="u-full-width" type="number" id="port">
+                        
+                        <label for="password">Password</label>
+                        <input class="u-full-width" type="password" id="password">
+                    </div>
+
+                    <input id="ftp-connect" class="button-primary" type="button" value="Connect">
+                </form>
+                <label for="path">Path</label>
+                <input class="u-full-width" type="text" id="path">
+
+                <input id="ftp-path" class="button-primary" type="button" value="Go To Path">
+                <ul id="hyperLinks"></ul>
+            </div>
+            <div id="nextSide" class="six columns">
+                <label>FTP status: <span id="serverStatus">not connected..</span></label>
+                <input id="ftp-back" class="button-primary" type="button" value="Back">
+                <input id="ftp-hyperlink" class="button-primary" type="button" value="Make Hyper Links">
+                <table class="u-full-width">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
