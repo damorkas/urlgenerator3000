@@ -34,9 +34,10 @@ app.post('/connect', async (req, res) => {
         port: data.port,
         connTimeout: 1000
     }).then((msg) => {
-        console.log('msg: ', msg);
+        console.log('msg: ', msg, client);
         return client.list('/');
     }).then((list) => {
+        console.log('LIST?');
         items = list;
     }).finally(() => {
         res.send(items);
