@@ -3,7 +3,7 @@ const parser = require('body-parser');
 const ftp = require('promise-ftp');
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 let client = new ftp();
 
 app.use(express.static(__dirname + '/public'));
@@ -57,6 +57,6 @@ app.post('/disconnect', (req, res) => {
     client.destroy();
 });
 
-app.listen(app.get('port'), () => {
-    console.log('app is listening on port ' + app.get('port') + '...');
+app.listen(PORT, () => {
+    console.log('app is listening on port ' + PORT + '...');
 });
