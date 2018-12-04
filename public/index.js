@@ -109,6 +109,12 @@ ready(function () {
         document.getElementById('path').value = '';
     });
 
+    document.getElementById('ftp-disconnect').addEventListener('click', function (event) {
+        sendJSON({}, '/disconnect');
+        document.getElementById('hyperLinks').innerHTML = '';
+        document.getElementById('path').value = '';
+    });
+
     document.getElementById('ftp-path').addEventListener('click', function (event) {
         var list = document.getElementById('path').value;
         document.getElementById('hyperLinks').innerHTML = '';

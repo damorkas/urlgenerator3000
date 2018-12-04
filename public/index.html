@@ -27,16 +27,21 @@
                     <div class="six columns">
                         <label for="port">Port</label>
                         <input class="u-full-width" type="number" id="port">
-                        
+
                         <label for="password">Password</label>
                         <input class="u-full-width" type="password" id="password">
                     </div>
-
-                    <input id="ftp-connect" class="button-primary" type="button" value="Connect">
+                    <div class="twelve columns">
+                        <div class="six columns">
+                            <input id="ftp-connect" class="button-primary" type="button" value="Connect">
+                        </div>
+                        <div class="six columns">
+                            <input id="ftp-disconnect" type="button" value="Disconnect">
+                        </div>
+                    </div>
                 </form>
                 <label for="path">Path</label>
                 <input class="u-full-width" type="text" id="path">
-
                 <input id="ftp-path" class="button-primary" type="button" value="Go To Path">
                 <ul id="hyperLinks"></ul>
             </div>
