@@ -57,6 +57,6 @@ app.post('/disconnect', (req, res) => {
     client.destroy();
 });
 
-app.listen(process.env.$PORT, () => {
-    console.log('app is listening on port ' + process.env.$PORT + '...');
+app.listen(app.get('port'), () => {
+    console.log('app is listening on port ' + app.get('port') + '...');
 });
