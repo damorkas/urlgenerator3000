@@ -55,6 +55,7 @@ app.post('/list', (req, res) => {
 
 app.post('/disconnect', (req, res) => {
     client.destroy();
+    res.send('disconnected');
 });
 
 app.listen(PORT, () => {

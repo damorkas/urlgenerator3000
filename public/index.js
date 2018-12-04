@@ -27,6 +27,11 @@ function printData(data) {
     var table = document.getElementById('table');
     var tr, name, type;
 
+    if (typeof data === 'string') {
+        printFailed(data);
+        return;
+    }
+
     names = [];
     table.innerHTML = '';
     data.forEach(element => {
@@ -56,12 +61,12 @@ function printData(data) {
     });
 }
 
-function printFailed() {
+function printFailed(msg) {
     var table = document.getElementById('table');
     var tr = document.createElement('tr');
     var td = document.createElement('td');
     td.style = 'color: red;';
-    td.textContent = 'server error..';
+    td.textContent = msg || 'server error..';
     tr.append(td);
     table.innerHTML = tr.innerHTML;
 }
