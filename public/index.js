@@ -12,9 +12,9 @@ function generator() {
     var names = [];
 
     var ftp = {
-        host: '',
-        user: 'anonymous',
-        pass: '@anonymous',
+        host: 'pixelhouse.lt',
+        user: 'piouse',
+        pass: '',
         port: '21'
     };
 
@@ -155,7 +155,7 @@ function generator() {
                 } else if (i.path.value[i.path.value.length - 1] !== '/') {
                     i.path.value = i.path.value + '/';
                 }
-                
+
                 var a = document.createElement('a');
 
                 i.path.value = i.path.value.replace(/\/+/g, '/');
@@ -164,10 +164,14 @@ function generator() {
                 a.href = 'http://' + i.host.value + i.path.value + name + '/';
                 a.target = '_blank';
 
-                li = document.createElement('li');
 
-                li.innerHTML = a.outerHTML;
-                i.hyperLinks.append(li);
+                //li = document.createElement('li');
+
+                //li.innerHTML = a.outerHTML;
+                i.hyperLinks.append(a);
+
+                var br = document.createElement('br');
+                i.hyperLinks.append(br);
             });
         },
         goToPath: function (server) {
