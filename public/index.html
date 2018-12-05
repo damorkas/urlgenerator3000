@@ -19,36 +19,36 @@
                 <form id="ftp" autocomplete="off">
                     <div class="six columns">
                         <label for="host">Host</label>
-                        <input class="u-full-width" type="text" id="host">
+                        <input class="u-full-width toggleconnection" type="text" id="host">
 
                         <label for="user">Username</label>
-                        <input class="u-full-width" type="text" id="user">
+                        <input class="u-full-width toggleconnection" type="text" id="user">
                     </div>
                     <div class="six columns">
                         <label for="port">Port</label>
-                        <input class="u-full-width" type="number" id="port">
+                        <input class="u-full-width toggleconnection" type="number" id="port">
 
-                        <label for="password">Password</label>
-                        <input class="u-full-width" type="password" id="password">
+                        <label for="pass">Password</label>
+                        <input class="u-full-width toggleconnection" type="password" id="pass">
                     </div>
                     <div class="twelve columns">
-                        <div class="six columns">
-                            <input id="ftp-connect" class="button-primary" type="button" value="Connect">
-                        </div>
-                        <div class="six columns">
-                            <input id="ftp-disconnect" type="button" value="Disconnect">
-                        </div>
+                        <input id="connect" class="button-primary toggleconnection" type="button" value="Connect">
+                        <input id="disconnect" class="button-primary toggleconnection" type="button" value="Disconnect" disabled>
+                        <label id="status" class="inline-block" for=""></label>
                     </div>
                 </form>
+                <label for="path">Root path</label>
+                <input class="u-full-width lightgray" id="rootpath" type="text" value="public_html" disabled>
                 <label for="path">Path</label>
-                <input class="u-full-width" type="text" id="path">
-                <input id="ftp-path" class="button-primary" type="button" value="Go To Path">
-                <ul id="hyperLinks"></ul>
+                <input class="u-full-width toggleconnection" type="text" id="path" value="" disabled>
+                <input id="gotopath" class="button-primary toggleconnection" type="button" value="Go To Path" disabled>
+                <label id="urlexplanation" for=""></label>
+                <ul id="hyperlinks"></ul>
             </div>
             <div id="nextSide" class="six columns">
-                <label>FTP:</label>
-                <input id="ftp-back" class="button-primary" type="button" value="Back">
-                <input id="ftp-hyperlink" class="button-primary" type="button" value="Make Hyper Links">
+                <label>&nbsp;</label>
+                <input id="back" class="button-primary toggleconnection" type="button" value="Back" disabled>
+                <input id="makehyperlinks" class="button-primary toggleconnection" type="button" value="Make Hyperlinks" disabled>
                 <table class="u-full-width">
                     <thead>
                         <tr>

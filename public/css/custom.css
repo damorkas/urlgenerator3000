@@ -2,6 +2,10 @@
     padding-left: 15px;
 }
 
+td {
+    padding: 6px;
+}
+
 .file {
     opacity: 0.5;
 }
@@ -12,4 +16,38 @@
 
 .catalog:hover {
     background-color: #33C3F0;
+}
+
+input[type="text"][disabled],
+input[type="number"][disabled],
+input[type="password"][disabled] {
+    background-color: lightgray;
+    opacity: 0.8;
+}
+
+input[type="button"].button-primary[disabled],
+input[type="button"].button-primary.disabled[disabled]:hover {
+    background-color: lightgray;
+    border-color: lightgray;
+}
+
+span.success {
+    color: #009900;
+}
+
+span.error {
+    color: #ff6666;
+}
+
+.inline-block {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+li {
+    margin-bottom: 0px;
+}
+
+ul {
+    list-style: inside decimal-leading-zero;
 }
