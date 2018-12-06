@@ -10,6 +10,7 @@ function ready(fn) {
 
 function generator() {
     var names = [];
+    var notyf = new Notyf();
 
     var ftp = {
         host: 'pixelhouse.lt',
@@ -145,7 +146,7 @@ function generator() {
             printMsg(response, isConnected);
         },
         generateHyperlinks: function () {
-            var title, url, li;
+            var a, br, selection, range;
 
             i.hyperLinks.innerHTML = '';
             i.urlExplanation.innerHTML = 'http:// + Host + Path + Name';
@@ -156,23 +157,25 @@ function generator() {
                     i.path.value = i.path.value + '/';
                 }
 
-                var a = document.createElement('a');
-
                 i.path.value = i.path.value.replace(/\/+/g, '/');
 
+                a = document.createElement('a');
                 a.text = name;
                 a.href = 'http://' + i.host.value + i.path.value + name + '/';
                 a.target = '_blank';
-
-
-                //li = document.createElement('li');
-
-                //li.innerHTML = a.outerHTML;
                 i.hyperLinks.append(a);
 
-                var br = document.createElement('br');
+                br = document.createElement('br');
                 i.hyperLinks.append(br);
             });
+
+            selection = window.getSelection();
+            range = document.createRange();
+            range.selectNodeContents(i.hyperLinks);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand('copy');
+            notyf.confirm('Copied to clipboard!');
         },
         goToPath: function (server) {
             i.hyperLinks.innerHTML = '';
