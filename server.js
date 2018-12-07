@@ -126,7 +126,7 @@ app.post('/hyperlinks', (req, res) => {
 
     try {
         if (data) {
-            console.log('hyperlinks:', data.join('\n'));
+            console.log('hyperlinks:\n', data.join('\n'));
         }
     } catch (error) {
         //

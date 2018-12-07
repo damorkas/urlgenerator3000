@@ -25,7 +25,8 @@ function generator() {
             disconnect: document.getElementById('disconnect'),
             gotopath: document.getElementById('gotopath'),
             back: document.getElementById('back'),
-            makehyperlinks: document.getElementById('makehyperlinks')
+            makehyperlinks: document.getElementById('makehyperlinks'),
+            makehyperlinksAll: document.getElementById('makehyperlinksall')
         }
     }());
 
@@ -106,6 +107,38 @@ function generator() {
         });
     }
 
+    function getDistinctUrls() {
+        var reg, matched;
+        var copy = names.slice(0);
+
+        // remove all with rule {skaicius}x{skaicius}_{ne 'v' + skaicius}
+        copy.reduce(function (list, provider, index) {
+            if (provider.match(new RegExp(/\d+x\d+_(?!v\d+)/, 'g'))) {
+                list.push(index);
+            }
+
+            return list;
+        }, []).reverse().forEach(function (index) {
+            copy.splice(index, 1);
+        });
+
+        copy.forEach(function (v, i) {
+            reg = new RegExp(`${v}_.*`, 'g');
+            matched = copy.filter(x => x.match(reg));
+        
+            if (matched.length > 0) {
+                copy.splice( copy.indexOf(v), 1 );
+                matched = matched.sort(function (a, b) {
+                    return a.substr(a.indexOf('_') + 2) - b.substr(b.indexOf('_') + 2);
+                }).reverse();
+                matched.splice( matched.indexOf(matched[0]), 1 );
+                matched.forEach((v, i) => copy.splice(copy.indexOf(v), 1 ));
+            }
+        });
+
+        return copy;
+    }
+
     return {
         init: function () {
             i.host.value = ftp.host;
@@ -145,12 +178,18 @@ function generator() {
 
             printMsg(response, isConnected);
         },
-        generateHyperlinks: function (server) {
-            var a, br, selection, range;
+        generateHyperlinks: function (server, all) {
+            var a, br, selection, range, list;
+
+            if (all) {
+                list = names.slice(0);
+            } else {
+                list = getDistinctUrls();
+            }
 
             i.hyperLinks.innerHTML = '';
             i.urlExplanation.innerHTML = 'http:// + Host + Path + Name';
-            names.forEach(function (name) {
+            list.forEach(function (name) {
                 if (i.path.value[0] !== '/') {
                     i.path.value = '/' + i.path.value;
                 } else if (i.path.value[i.path.value.length - 1] !== '/') {
@@ -178,7 +217,7 @@ function generator() {
             document.execCommand('copy');
             notyf.confirm('Copied to clipboard!');
 
-            server.hyperlinks(names);
+            server.hyperlinks(list);
         },
         goToPath: function (server) {
             i.hyperLinks.innerHTML = '';
@@ -197,7 +236,7 @@ function generator() {
         },
         goBack: function (server) {
             var list = i.path.value.split('/');
-            
+
             if (list.length <= 1) return;
 
             var popped = list.pop();
@@ -205,10 +244,10 @@ function generator() {
             if (popped === '') {
                 list.pop();
             }
-            
+
             list = list.join('/')
 
-            if (list[0] !== '/'){
+            if (list[0] !== '/') {
                 list = '/' + list;
             }
 
@@ -353,7 +392,11 @@ ready(function () {
         gen.goBack(server);
     });
 
+    buttons.makehyperlinksAll.addEventListener('click', function (event) {
+        gen.generateHyperlinks(server, true);
+    });
+
     buttons.makehyperlinks.addEventListener('click', function (event) {
-        gen.generateHyperlinks(server);
+        gen.generateHyperlinks(server, false);
     });
 });
