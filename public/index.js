@@ -163,6 +163,7 @@ function generator() {
                 a.text = name;
                 a.href = 'http://' + i.host.value + i.path.value + name + '/';
                 a.target = '_blank';
+                a.style = 'color: rgb(5, 99, 193);';
                 i.hyperLinks.append(a);
 
                 br = document.createElement('br');
@@ -180,6 +181,10 @@ function generator() {
         goToPath: function (server) {
             i.hyperLinks.innerHTML = '';
             i.urlExplanation.innerHTML = '';
+
+            if (i.path.value[0] !== '/') {
+                i.path.value = '/' + i.path.value;
+            }
 
             server.ls({
                 ls: i.path.value

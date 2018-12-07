@@ -46,14 +46,19 @@ app.post('/connect', (req, res) => {
 
         interval = setInterval(function () {
             counter--;
-            if (items.length > 0 || counter === 0) {
-                console.log("Connected. Hi!");
+            if (items.length > 0) {
                 res.send(items);
+                console.log("Connected. Hi!");
+                clearInterval(interval);
+            } else if (counter === 0) {
+                res.send(items);
+                console.log("counter = 0, err");
                 clearInterval(interval);
             }
         }, 400);
     } catch (error) {
         res.send('500 in server(connect).. ' + error);
+        console.log('500 in server(connect).. ' + error);
     }
 });
 
@@ -65,12 +70,11 @@ app.post('/disconnect', (req, res) => {
     try {
         ftps.raw('quit', (err, data) => {
             if (err) {
-                res.send('quit failed..');
+                res.send('quit failed..' + err);
                 clearInterval(interval);
-                return console.error(err);
+                return console.error('quit failed..' + err);
             }
 
-            console.log("Disconnected. Bye!");
             isQuit = true;
         });
 
@@ -78,11 +82,13 @@ app.post('/disconnect', (req, res) => {
             counter--;
             if (isQuit || counter === 0) {
                 res.send('Disconnected..');
+                console.log('Disconnected. Bye!');
                 clearInterval(interval);
             }
         }, 400);
     } catch (error) {
         res.send('500 in server(disconnect).. ' + error);
+        console.log('500 in server(disconnect).. ' + error);
     }
 });
 
@@ -92,7 +98,10 @@ app.post('/ls', (req, res) => {
     let items = [];
     let counter = 5;
 
-    console.log(data.ls);
+    console.info('ls path: ', data.ls);
+    console.log('ls path: ', data.ls);
+    console.error('ls path: ', data.ls);
+    console.warn('ls path: ' + data.ls);
 
     try {
         ftps.ls('/' + data.root + data.ls, function (noup, files) {
@@ -104,13 +113,14 @@ app.post('/ls', (req, res) => {
         interval = setInterval(function () {
             counter--;
             if (items.length > 0 || counter === 0) {
-                console.log('ls: ', items);
                 res.send(items);
+                console.log('ls items: ', items.length);
                 clearInterval(interval);
             }
         }, 400);
     } catch (error) {
         res.send('500 in server(connect).. ' + error);
+        console.log('500 in server(connect).. ' + error);
     }
 });
 
