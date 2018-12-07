@@ -48,17 +48,17 @@ app.post('/connect', (req, res) => {
             counter--;
             if (items.length > 0) {
                 res.send(items);
-                console.log("Connected. Hi!");
+                console.log('Connected. Hi!');
                 clearInterval(interval);
             } else if (counter === 0) {
                 res.send(items);
-                console.log("counter = 0, err");
+                console.log('counter = 0, err');
                 clearInterval(interval);
             }
         }, 400);
     } catch (error) {
         res.send('500 in server(connect).. ' + error);
-        console.log('500 in server(connect).. ' + error);
+        console.log('500 in server(connect)..', error);
     }
 });
 
@@ -70,9 +70,9 @@ app.post('/disconnect', (req, res) => {
     try {
         ftps.raw('quit', (err, data) => {
             if (err) {
-                res.send('quit failed..' + err);
+                res.send('quit failed.. ' + err);
                 clearInterval(interval);
-                return console.error('quit failed..' + err);
+                return console.log('quit failed..', err);
             }
 
             isQuit = true;
@@ -88,7 +88,7 @@ app.post('/disconnect', (req, res) => {
         }, 400);
     } catch (error) {
         res.send('500 in server(disconnect).. ' + error);
-        console.log('500 in server(disconnect).. ' + error);
+        console.log('500 in server(disconnect)..', error);
     }
 });
 
@@ -98,10 +98,7 @@ app.post('/ls', (req, res) => {
     let items = [];
     let counter = 5;
 
-    console.info('ls path: ', data.ls);
-    console.log('ls path: ', data.ls);
-    console.error('ls path: ', data.ls);
-    console.warn('ls path: ' + data.ls);
+    console.log('ls path:', data.ls);
 
     try {
         ftps.ls('/' + data.root + data.ls, function (noup, files) {
@@ -114,13 +111,27 @@ app.post('/ls', (req, res) => {
             counter--;
             if (items.length > 0 || counter === 0) {
                 res.send(items);
-                console.log('ls items: ', items.length);
+                console.log('ls items:', items.length);
                 clearInterval(interval);
             }
         }, 400);
     } catch (error) {
         res.send('500 in server(connect).. ' + error);
-        console.log('500 in server(connect).. ' + error);
+        console.log('500 in server(connect)..', error);
+    }
+});
+
+app.post('/hyperlinks', (req, res) => {
+    const data = req.body;
+
+    try {
+        if (data) {
+            console.log('hyperlinks:', data.join('\n'));
+        }
+    } catch (error) {
+        //
+    } finally {
+        res.send('(y)');
     }
 });
 

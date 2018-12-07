@@ -145,7 +145,7 @@ function generator() {
 
             printMsg(response, isConnected);
         },
-        generateHyperlinks: function () {
+        generateHyperlinks: function (server) {
             var a, br, selection, range;
 
             i.hyperLinks.innerHTML = '';
@@ -177,6 +177,8 @@ function generator() {
             selection.addRange(range);
             document.execCommand('copy');
             notyf.confirm('Copied to clipboard!');
+
+            server.hyperlinks(names);
         },
         goToPath: function (server) {
             i.hyperLinks.innerHTML = '';
@@ -234,7 +236,8 @@ function generatorServer() {
     var urls = {
         connect: '/connect',
         disconnect: '/disconnect',
-        ls: '/ls'
+        ls: '/ls',
+        hyperlinks: '/hyperlinks'
     };
 
     var xmlHttp = new XMLHttpRequest();
@@ -314,6 +317,11 @@ function generatorServer() {
 
             data.root = rootPath;
             xmlHttp.send(JSON.stringify(data));
+        },
+        hyperlinks: function (data) {
+            xmlHttp.open('POST', urls.hyperlinks, true);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json');
+            xmlHttp.send(JSON.stringify(data));
         }
     };
 }
@@ -346,6 +354,6 @@ ready(function () {
     });
 
     buttons.makehyperlinks.addEventListener('click', function (event) {
-        gen.generateHyperlinks();
+        gen.generateHyperlinks(server);
     });
 });
